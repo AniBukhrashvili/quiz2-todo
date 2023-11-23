@@ -2,12 +2,16 @@ import { useState } from "react";
 import styles from "./AppListing.module.scss";
 
 export default function AppListing({ notes, setNotes }) {
-  const [checkedItems, setCheckedItems] = useState([]);
+  const [checkedItems, setCheckedItems] = useState(
+    new Array(notes.length).fill(false)
+  );
 
   const handleCheckboxChange = (index) => {
-    const newCheckedItems = [...checkedItems];
-    newCheckedItems[index] = !newCheckedItems[index];
-    setCheckedItems(newCheckedItems);
+    setCheckedItems((prevCheckedItems) => {
+      const newCheckedItems = [...prevCheckedItems];
+      newCheckedItems[index] = !newCheckedItems[index];
+      return newCheckedItems;
+    });
   };
 
   const handleDeleteClick = (index) => {
@@ -488,6 +492,7 @@ export default function AppListing({ notes, setNotes }) {
             <input
               className={styles.AppListing__Checkbox}
               type="checkbox"
+              checked={checkedItems[index]}
               onChange={() => handleCheckboxChange(index)}
             />
             <div className={styles.AppListing__Title}>{note}</div>
