@@ -7,18 +7,34 @@ import AppModal from "./components/AppModal";
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
+  const [notes, setNotes] = useState([]);
+  const [currentNote, setCurrentNote] = useState("");
+
+  const handleNoteChange = (newNote) => {
+    setCurrentNote(newNote);
+  };
+
+  const handleApply = () => {
+    if (currentNote.trim() !== "") {
+      setNotes([...notes, currentNote]);
+      setCurrentNote("");
+    }
+  };
 
   return (
     <AppContainer>
       <div>
         <AppHeader />
-        <AppListing />
+        <AppListing notes={notes} setNotes={setNotes} />
       </div>
       <AppAddButton onChange={() => setIsVisible(!isVisible)} />
       {isVisible && (
         <AppModal
           isVisible={isVisible}
           onChange={() => setIsVisible(!isVisible)}
+          note={currentNote}
+          onNoteChange={handleNoteChange}
+          onApply={handleApply}
         />
       )}
     </AppContainer>
