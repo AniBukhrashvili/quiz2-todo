@@ -1,8 +1,8 @@
 import styles from "./AppAddButton.module.scss";
 
-export default function AppAddButton() {
+export default function AppAddButton({ onChange }) {
   return (
-    <div className={styles.AppAddButton}>
+    <div className={styles.AppAddButton} onClick={onChange}>
       <div className={styles.AppAddButton__Icon}>
         <svg
           viewBox="0 0 24 24"
